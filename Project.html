@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
     <title>EZRENT - Student Rental Properties</title>
-  
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap');
+
         body {
-            font-family: 'Comic sans MS',serif;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f0f2f5;
@@ -23,8 +23,8 @@
         }
         header h1 {
             margin: 0;
-            font-size: 2.5em;
-            font-family: 'Garamond',serif;
+            font-family: 'Montserrat', serif;
+            font-size: 3em;
         }
         .header-icons {
             position: absolute;
@@ -46,32 +46,117 @@
             margin: 20px auto;
             padding: 0 20px;
         }
+        .search-bar {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .search-bar input[type="text"] {
+            flex: 1;
+            padding: 12px 20px;
+            font-size: 1.1em;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            margin-right: 10px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        .search-bar input[type="text"]:focus {
+            border-color: #0056b3;
+            outline: none;
+            box-shadow: 0 4px 12px rgba(0, 86, 179, 0.2);
+        }
+        .search-bar button {
+            padding: 10px 15px;
+            font-size: 1em;
+            background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+        }
+        .search-bar button:hover {
+            background: linear-gradient(135deg, #218838 0%, #1c7430 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .filters {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .filters select {
+            padding: 10px;
+            font-size: 1em;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+        .filters select:focus {
+            border-color: #0056b3;
+            outline: none;
+        }
+        .filters button {
+            padding: 10px 15px;
+            font-size: 1em;
+            background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .filters button:hover {
+            background: linear-gradient(135deg, #218838 0%, #1c7430 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
         .property-card {
-            background-color: #ffffff;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
+            background: linear-gradient(135deg, #fff 0%, #f9f9f9 100%);
+            border: none;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
             margin: 20px 0;
             padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.4s, box-shadow 0.4s;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
         }
         .property-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transform: scale(1.08);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .property-card img {
             width: 100%;
             height: auto;
-            border-radius: 8px;
+            border-radius: 10px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .property-card img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
         .property-card h2 {
             margin: 15px 0;
-            color: #333;
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Montserrat', serif;
             font-size: 1.8em;
+            color: #333;
             text-align: center;
         }
         .property-card .details {
@@ -80,12 +165,8 @@
             color: #555;
             text-align: center;
         }
-        .property-card .details span {
-            display: inline-block;
-            margin-right: 5px;
-        }
         .property-card .contact {
-            background-color: #28a745;
+            background: linear-gradient(135deg, #28a745 0%, #218838 100%);
             color: white;
             padding: 15px;
             border-radius: 5px;
@@ -94,26 +175,45 @@
             font-size: 1.1em;
             transition: background-color 0.3s;
             margin-top: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .property-card .contact:hover {
-            background-color: #218838;
+            background: linear-gradient(135deg, #218838 0%, #1c7430 100%);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
         .location-icon {
             font-size: 1.6em;
             color: #0056b3;
         }
         .footer {
-            background-color: #0056b3;
+            background: linear-gradient(135deg, #0056b3 0%, #004494 100%);
             color: white;
             text-align: center;
-            padding: 15px 0;
+            padding: 25px 0;
+            font-size: 1.2em;
             position: relative;
             bottom: 0;
             width: 100%;
         }
         @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2em;
+            }
+            .filters, .search-bar {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            .search-bar input[type="text"], .filters select, .filters button {
+                margin-bottom: 10px;
+                width: 100%;
+            }
             .property-card {
                 width: 100%;
+                margin: 10px 0;
+            }
+            .container {
+                padding: 0 10px;
             }
         }
     </style>
@@ -121,73 +221,63 @@
 <body>
     <header>
         <h1>EZRENT - Student Rental Properties</h1>
-<div class="header-icons">
+        <div class="header-icons">
             <a href="login.html" title="Login">🔓</a>
             <a href="subscribe.html" title="Subscribe">📬</a>
-        </div>
-    </div>
         </div>
     </header>
 
     <div class="container">
-        <div class="property-card">
-            <img src="property1.jpg" alt="Cozy Apartment near K.J. Somaiya College">
-            <h2>Cozy Apartment near K.J. Somaiya College</h2>
-            <div class="details">
-                <span class="location-icon">📍</span> Location: 123 College Avenue, Near K.J. Somaiya College of Engineering<br>
-                Number of Students: 4<br>
-                Price Range: ₹30,000 - ₹35,000 per month
-            </div>
-            <a href="tel:+919876543210" class="contact">Contact Agent: +91 987 654 3210</a>
+        <div class="search-bar">
+            <input type="text" placeholder="Search properties..." />
+            <button type="button">Search</button>
+        </div>
+        <div class="filters">
+            <select>
+                <option value="">Select Property Type</option>
+                <option value="apartment">Apartment</option>
+                <option value="house">House</option>
+                <option value="dormitory">Dormitory</option>
+                <option value="flat">Flat</option>
+            </select>
+            <select>
+                <option value="">Select Price Range</option>
+                <option value="500">Less than $500</option>
+                <option value="1000">$500 - $1000</option>
+                <option value="1500">$1000 - $1500</option>
+                <option value="2000">$1500 - $2000</option>
+            </select>
+            <button type="button">Apply Filters</button>
         </div>
 
         <div class="property-card">
-          <img src="property2.jpg" alt="Spacious House near K.J. Somaiya College">
-            <h2>Spacious House near K.J. Somaiya College</h2>
-            <div class="details">
-                <span class="location-icon">📍</span> Location: 456 Campus Street, Near K.J. Somaiya College of Engineering<br>
-                Number of Students: 6<br>
-                Price Range: ₹45,000 - ₹50,000 per month
-            </div>
-            <a href="tel:+919876543211" class="contact">Contact Agent: +91 987 654 3211</a>
+            <img src="C:\Users\rajse\Desktop\WhatsApp Image 2024-10-04 at 11.34.29_96a18327" alt="Property Image">
+
+            <h2>Charming 3 Bedroom House</h2>
+            <p class="details"><i class="location-icon">📍</i> 1234 University St, College Town</p>
+            <p class="details">Price: Rs.30,000/month</p>
+            <a href="#" class="contact">Contact Property Manager</a>
         </div>
 
         <div class="property-card">
-            <img src="property3.jpg" alt="Modern Flat in Malad">
-            <h2>Modern Flat in Malad</h2>
-            <div class="details">
-                <span class="location-icon">📍</span> Location: 789 Academic Lane, Malad East<br>
-                Number of Students: 3<br>
-                Price Range: ₹25,000 - ₹30,000 per month
-            </div>
-            <a href="tel:+912345678901" class="contact">Contact Agent: +91 234 567 8901</a>
+            <img src="property2.jpg" alt="Property Image">
+            <h2>Modern Apartment Near Campus</h2>
+            <p class="details"><i class="location-icon">📍</i> 5678 Student Lane, College Town</p>
+            <p class="details">Price: Rs.35,000/month</p>
+            <a href="#" class="contact">Contact Property Manager</a>
         </div>
 
         <div class="property-card">
-            <img src="property4.jpg" alt="Luxury Dormitory in Borivali">
-            <h2>Luxury Dormitory in Borivali</h2>
-            <div class="details">
-                <span class="location-icon">📍</span> Location: 321 Scholar's Way, Borivali West<br>
-                Number of Students: 8<br>
-                Price Range: ₹60,000 - ₹70,000 per month
-            </div>
-            <a href="tel:+912345678902" class="contact">Contact Agent: +91 234 567 8902</a>
-        </div>
-
-        <div class="property-card">
-            <img src="property5.jpg" alt="Charming Flat in Andheri">
-            <h2>Charming Flat in Andheri</h2>
-            <div class="details">
-                <span class="location-icon">📍</span> Location: 654 Harmony Street, Andheri East<br>
-                Number of Students: 5<br>
-                Price Range: ₹40,000 - ₹45,000 per month
-            </div>
-            <a href="tel:+912345678903" class="contact">Contact Agent: +91 234 567 8903</a>
+            <img src="property3.jpg" alt="Property Image">
+            <h2>Spacious Dormitory Room</h2>
+            <p class="details"><i class="location-icon">📍</i> 9101 Dorm Blvd, College Town</p>
+            <p class="details">Price: $800/month</p>
+            <a href="#" class="contact">Contact Property Manager</a>
         </div>
     </div>
 
     <footer class="footer">
-        <p>&copy; 2024 EZRENT. All Rights Reserved.</p>
+        &copy; 2024 EZRENT - All Rights Reserved
     </footer>
 </body>
 </html>
