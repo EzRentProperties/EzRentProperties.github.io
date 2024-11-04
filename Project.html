@@ -6,7 +6,7 @@
     <title>EZRENT - Student Rental Properties</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap');
-        
+
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
@@ -228,58 +228,55 @@
 
     <div class="container">
         <div class="search-bar">
-            <input id="searchInput" type="text" placeholder="Search properties..." />
-            <button type="button" onclick="search()">Search</button>
+            <input type="text" placeholder="Search properties..." />
+            <button type="button">Search</button>
         </div>
         <div class="filters">
-            <select id="typeFilter">
+            <select>
                 <option value="">Select Property Type</option>
                 <option value="apartment">Apartment</option>
                 <option value="house">House</option>
                 <option value="dormitory">Dormitory</option>
-                <option value="hostel">Hostel</option>
+                <option value="flat">Flat</option>
             </select>
-            <input id="priceFilter" type="number" placeholder="Max Price (Rs.)" />
-            <button type="button" onclick="filter()">Apply Filters</button>
+            <select>
+                <option value="">Select Price Range</option>
+                <option value="20000">Less than Rs.20000</option>
+                <option value="25000">Rs.20000 - Rs.25000</option>
+                <option value="30000">Rs.25000 - Rs.30000</option>
+                <option value="40000">Rs.30000 - Rs.40000</option>
+            </select>
+            <button type="button">Apply Filters</button>
         </div>
 
-        <div id="propertyList"></div>
+        <div class="property-card">
+            <img src="download.jpg" width="150" height="150" >
+
+            <h2>Charming 3 Bedroom House</h2>
+            <p class="details"><i class="location-icon">📍</i> 1234 University St, College Town</p>
+            <p class="details">Price: Rs.30,000/month</p>
+            <a href="#" class="contact">Contact Property Manager</a>
+        </div>
+
+        <div class="property-card">
+            <img src="pexels-photo.jpg" alt="Property Image">
+            <h2>Modern Apartment Near Campus</h2>
+            <p class="details"><i class="location-icon">📍</i> 5678 Student Lane, College Town</p>
+            <p class="details">Price: Rs.35,000/month</p>
+            <a href="#" class="contact">Contact Property Manager</a>
+        </div>
+
+        <div class="property-card">
+            <img src="photo.jpg" alt="Property Image">
+            <h2>Spacious Dormitory Room</h2>
+            <p class="details"><i class="location-icon">📍</i> 9101 Dorm Blvd, College Town</p>
+            <p class="details">Price: Rs.25000/month</p>
+            <a href="#" class="contact">Contact Property Manager</a>
+        </div>
     </div>
 
     <footer class="footer">
-        © 2024 EZRENT. All Rights Reserved.
+        &copy; 2024 EZRENT - All Rights Reserved
     </footer>
-
-    <script>
-        function search() {
-            const query = document.getElementById('searchInput').value;
-            fetch(`/search?name=${encodeURIComponent(query)}`)
-                .then(response => response.json())
-                .then(displayProperties);
-        }
-
-        function filter() {
-            const type = document.getElementById('typeFilter').value;
-            const maxPrice = document.getElementById('priceFilter').value;
-            fetch(`/filter?type=${encodeURIComponent(type)}&maxPrice=${encodeURIComponent(maxPrice)}`)
-                .then(response => response.json())
-                .then(displayProperties);
-        }
-
-        function displayProperties(properties) {
-            const propertyList = document.getElementById('propertyList');
-            propertyList.innerHTML = '';
-            properties.forEach(property => {
-                const card = document.createElement('div');
-                card.className = 'property-card';
-                card.innerHTML = `
-                    <h2>${property.name}</h2>
-                    <p class="details">Location: ${property.location}</p>
-                    <p class="details">Type: ${property.propertyType}</p>
-                    <p class="details">Price: Rs.${property.price}/month</p>`;
-                propertyList.appendChild(card);
-            });
-        }
-    </script>
 </body>
 </html>
