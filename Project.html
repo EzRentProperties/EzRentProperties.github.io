@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EZRENT - Student Rental Properties</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOM6DI/6o0lfGqk5CPeZ5L0sE3f0B3Fow8l36j1" crossorigin="anonymous">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap');
 
@@ -20,6 +21,7 @@
             padding: 20px;
             text-align: center;
             position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         header h1 {
             margin: 0;
@@ -36,9 +38,15 @@
             text-decoration: none;
             font-size: 1.5em;
             margin-left: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, background-color 0.3s;
         }
         .header-icons a:hover {
-            color: #e0e0e0;
+            transform: scale(1.1);
+            background-color: rgba(255, 255, 255, 0.3);
         }
         .container {
             width: 90%;
@@ -46,13 +54,13 @@
             margin: 20px auto;
             padding: 0 20px;
         }
-        .search-bar {
+        .search-bar, .filters {
             margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .search-bar input[type="text"] {
+        .search-bar input[type="text"], .filters select {
             flex: 1;
             padding: 12px 20px;
             font-size: 1.1em;
@@ -62,12 +70,12 @@
             transition: border-color 0.3s, box-shadow 0.3s;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
-        .search-bar input[type="text"]:focus {
+        .search-bar input[type="text"]:focus, .filters select:focus {
             border-color: #0056b3;
             outline: none;
             box-shadow: 0 4px 12px rgba(0, 86, 179, 0.2);
         }
-        .search-bar button {
+        .search-bar button, .filters button {
             padding: 10px 15px;
             font-size: 1em;
             background: linear-gradient(135deg, #28a745 0%, #218838 100%);
@@ -76,43 +84,9 @@
             border-radius: 5px;
             cursor: pointer;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+            transition: background-color 0.3s, transform 0.2s;
         }
-        .search-bar button:hover {
-            background: linear-gradient(135deg, #218838 0%, #1c7430 100%);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
-        .filters {
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .filters select {
-            padding: 10px;
-            font-size: 1em;
-            margin-right: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            transition: border-color 0.3s;
-        }
-        .filters select:focus {
-            border-color: #0056b3;
-            outline: none;
-        }
-        .filters button {
-            padding: 10px 15px;
-            font-size: 1em;
-            background: linear-gradient(135deg, #28a745 0%, #218838 100%);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        .filters button:hover {
+        .search-bar button:hover, .filters button:hover {
             background: linear-gradient(135deg, #218838 0%, #1c7430 100%);
             transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
@@ -128,19 +102,10 @@
             flex-direction: column;
             align-items: center;
             transition: transform 0.4s, box-shadow 0.4s;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.6s ease forwards;
         }
         .property-card:hover {
-            transform: scale(1.08);
+            transform: scale(1.05);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-        }
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
         .property-card img {
             width: 100%;
@@ -195,6 +160,14 @@
             bottom: 0;
             width: 100%;
         }
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(-5px);
+            }
+        }
         @media (max-width: 768px) {
             header h1 {
                 font-size: 2.2em;
@@ -223,6 +196,7 @@
         <h1>EZRENT - Student Rental Properties</h1>
         <div class="header-icons">
             <a href="login.html" title="Login">🔓</a>
+            <i class="fas fa-lock" style="animation: shake 0.5s infinite;"></i>
         </div>
     </header>
 
@@ -244,39 +218,38 @@
                 <option value="20000">Less than Rs.20000</option>
                 <option value="25000">Rs.20000 - Rs.25000</option>
                 <option value="30000">Rs.25000 - Rs.30000</option>
-                <option value="40000">Rs.30000 - Rs.40000</option>
+                <option value="30000+">More than Rs.30000</option>
             </select>
             <button type="button">Apply Filters</button>
         </div>
 
         <div class="property-card">
-            <img src="download.jpg" width="150" height="150" >
+            <img src="download.jpg" alt="Spacious Studio">
+            <h2>Spacious Studio</h2>
+            <p class="details"><i class="location-icon">📍</i> 1234 Main St, City Center</p>
+            <p class="details">Price: Rs.25,000/month</p>
+            <a href="#" class="contact">Contact Owner</a>
+        </div>
 
-            <h2>Charming 3 Bedroom House</h2>
-            <p class="details"><i class="location-icon">📍</i> 1234 University St, College Town</p>
+        <div class="property-card">
+            <img src="download.jpg" alt="Cozy Apartment">
+            <h2>Cozy Apartment</h2>
+            <p class="details"><i class="location-icon">📍</i> 5678 College Ave, Campus City</p>
+            <p class="details">Price: Rs.20,000/month</p>
+            <a href="#" class="contact">Contact Owner</a>
+        </div>
+
+        <div class="property-card">
+            <img src="download.jpg" alt="Modern Flat">
+            <h2>Modern Flat</h2>
+            <p class="details"><i class="location-icon">📍</i> 9101 Market St, Uni Town</p>
             <p class="details">Price: Rs.30,000/month</p>
-            <a href="#" class="contact">Contact Property Manager</a>
-        </div>
-
-        <div class="property-card">
-            <img src="pexels-photo.jpg" alt="Property Image">
-            <h2>Modern Apartment Near Campus</h2>
-            <p class="details"><i class="location-icon">📍</i> 5678 Student Lane, College Town</p>
-            <p class="details">Price: Rs.35,000/month</p>
-            <a href="#" class="contact">Contact Property Manager</a>
-        </div>
-
-        <div class="property-card">
-            <img src="photo.jpg" alt="Property Image">
-            <h2>Spacious Dormitory Room</h2>
-            <p class="details"><i class="location-icon">📍</i> 9101 Dorm Blvd, College Town</p>
-            <p class="details">Price: Rs.25000/month</p>
-            <a href="#" class="contact">Contact Property Manager</a>
+            <a href="#" class="contact">Contact Owner</a>
         </div>
     </div>
 
     <footer class="footer">
-        &copy; 2024 EZRENT - All Rights Reserved
+        &copy; 2024 EZRENT. All rights reserved.
     </footer>
 </body>
 </html>
