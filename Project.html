@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EZRENT - Student Rental Properties</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOM6DI/6o0lfGqk5CPeZ5L0sE3f0B3Fow8l36j1" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap');
-
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f2f5;
+            background-color: #f9f9f9;
             color: #333;
+            line-height: 1.6;
         }
         header {
-            background-color: #0056b3;
+            background-color: #007bff;
             color: white;
             padding: 20px;
             text-align: center;
@@ -26,7 +26,8 @@
         header h1 {
             margin: 0;
             font-family: 'Montserrat', serif;
-            font-size: 3em;
+            font-size: 2.8em;
+            letter-spacing: 1px;
         }
         .header-icons {
             position: absolute;
@@ -39,9 +40,8 @@
             font-size: 1.5em;
             margin-left: 15px;
             padding: 10px;
-            border-radius: 5px;
+            border-radius: 50%;
             background-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, background-color 0.3s;
         }
         .header-icons a:hover {
@@ -71,9 +71,9 @@
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
         .search-bar input[type="text"]:focus, .filters select:focus {
-            border-color: #0056b3;
+            border-color: #007bff;
             outline: none;
-            box-shadow: 0 4px 12px rgba(0, 86, 179, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
         }
         .search-bar button, .filters button {
             padding: 10px 15px;
@@ -81,7 +81,7 @@
             background: linear-gradient(135deg, #28a745 0%, #218838 100%);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 30px;
             cursor: pointer;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: background-color 0.3s, transform 0.2s;
@@ -92,7 +92,7 @@
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
         .property-card {
-            background: linear-gradient(135deg, #fff 0%, #f9f9f9 100%);
+            background: white;
             border: none;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
@@ -104,7 +104,7 @@
             transition: transform 0.4s, box-shadow 0.4s;
         }
         .property-card:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
         }
         .property-card img {
@@ -114,7 +114,7 @@
             transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
         .property-card img:hover {
-            transform: scale(1.05);
+            transform: scale(1.03);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
         .property-card h2 {
@@ -123,6 +123,7 @@
             font-size: 1.8em;
             color: #333;
             text-align: center;
+            font-weight: 600;
         }
         .property-card .details {
             font-size: 1.1em;
@@ -134,7 +135,7 @@
             background: linear-gradient(135deg, #28a745 0%, #218838 100%);
             color: white;
             padding: 15px;
-            border-radius: 5px;
+            border-radius: 30px;
             text-align: center;
             text-decoration: none;
             font-size: 1.1em;
@@ -148,10 +149,10 @@
         }
         .location-icon {
             font-size: 1.6em;
-            color: #0056b3;
+            color: #007bff;
         }
         .footer {
-            background: linear-gradient(135deg, #0056b3 0%, #004494 100%);
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
             color: white;
             text-align: center;
             padding: 25px 0;
@@ -224,25 +225,25 @@
         </div>
 
         <div class="property-card">
-            <img src="download.jpg" alt="Spacious Studio">
-            <h2>Spacious Studio</h2>
-            <p class="details"><i class="location-icon">📍</i> 1234 Main St, City Center</p>
+            <img src="pexels-photo.jpg" alt="Spacious House">
+            <h2>Spacious House</h2>
+            <p class="details"><i class="location-icon">📍</i> BKC,Opp. Main bridge,Sion</p>
             <p class="details">Price: Rs.25,000/month</p>
             <a href="#" class="contact">Contact Owner</a>
         </div>
 
         <div class="property-card">
-            <img src="download.jpg" alt="Cozy Apartment">
-            <h2>Cozy Apartment</h2>
-            <p class="details"><i class="location-icon">📍</i> 5678 College Ave, Campus City</p>
+            <img src="photo.jpg" alt="Comfortable Apartment">
+            <h2>Comfortable Apartment</h2>
+            <p class="details"><i class="location-icon">📍</i> Station Road,Somaiya,Chunnabhati</p>
             <p class="details">Price: Rs.20,000/month</p>
             <a href="#" class="contact">Contact Owner</a>
         </div>
 
         <div class="property-card">
-            <img src="download.jpg" alt="Modern Flat">
-            <h2>Modern Flat</h2>
-            <p class="details"><i class="location-icon">📍</i> 9101 Market St, Uni Town</p>
+            <img src="House.jpg" alt="Modern Flat">
+            <h2>Modern Tenament</h2>
+            <p class="details"><i class="location-icon">📍</i> Metro Road.Andheri</p>
             <p class="details">Price: Rs.30,000/month</p>
             <a href="#" class="contact">Contact Owner</a>
         </div>
